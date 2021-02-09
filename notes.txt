@@ -1,0 +1,149 @@
+Run a docker image publishing and creating a container with exposed port to outside:
+    - docker run -p 3000:3000 <image_ID>
+
+Run a docker node image and interact with it:
+    - docker run -it node // would be any image
+
+Run and detached an image with "-d" flag:
+    - docker run -p 3000:3000 -d <image_ID>
+
+Get the list of running containers:
+    - docker ps
+    - docker ps -a // this also return the stoped processes
+
+Stop a running container:
+    - docker stop <container_name>
+
+Build an image:
+    - docker build .
+
+Start an existing container:
+    - docker start <stoped_container_name>
+
+Attach to a running container:
+    - docker attach <container_name>
+
+Start and attach to stoped containers:
+    - docker start -a <container_name>
+
+Get logs from running containers:
+    - docker logs <container_name> // see the old logs
+    - docker logs -f <container_name> // keep follow
+
+Restart a container an keep listening for input:
+    - docker start -a -i <container_name>
+
+Remove containers:
+    - docker rm <container_name>
+
+Remove images:
+    - docker rmi <image_id>
+
+Create a container and removed when stoped:
+    - docker run -p 3000:80 --rm <image_id>
+
+Get all image information inspecting it:
+    - docker image inspect <image_ID>
+
+Copying files into and from a container:
+    - docker cp <source>/. <destination_container:/test>
+    - docker cp dummy/. container_name:/test
+
+Naming containers using "--name" flag:
+    - docker run -p 3000:80 -d --rm --name <custom name> <image_id>
+
+Tagging images with "-t" flag:
+    - docker build -t <custom_repository>:<custom_tag> .
+    - docker build -t goals:latest .
+
+
+//////////////////////////////////////////
+/// Run a container with a exposed port///
+//////////////////////////////////////////
+
+Build images:
+    - docker build .
+
+Create(publish) a container:
+    - docker run -p 8000:3000 <image_ID>
+
+Stop a container:
+    - docker stop <container_name>
+
+///////////////////////////////////////////
+/// Run a container in interactive mode ///
+///////////////////////////////////////////
+
+Build images:
+    - docker build .
+
+Create a container:
+    - docker run -it <image_ID>
+
+Stop a container:
+    - docker stop <container_name>
+
+////////////////////////////////////////
+/// Run a container with custom name ///
+////////////////////////////////////////
+
+
+Create a container with name:
+    - docker run -it --name phyton_app <image_ID>
+
+Create a container and removed when stop:
+    - docker run -p 8000:3000 --name <container_name> --rm <image_name>
+
+Stop a container:
+    - docker stop <container_name>
+
+Start a container in interactive and attached mode:
+    - docker start -i -a <container_name>
+
+///////////////////////////////////////////////
+/// Build an image with custom name and tag ///
+///////////////////////////////////////////////
+
+Build an image with custom name:
+    - docker build -t <image_name> .
+
+Build an image with custom name and tag:
+    - docker build -t <image_name>:<image_tag> .
+
+/////////////////////////
+/// Remove containers ///
+/////////////////////////
+
+Get all running and stoped containers
+    - docker ps -all
+
+Remove containers:
+    - docker rm <container_name> <container_name> <etc>
+
+/////////////////////
+/// Remove images ///
+/////////////////////
+
+Get all the images:
+    - docker images
+
+Remove an image:
+    - docker rmi <image_ID>
+
+Remove all the images that depends of other images:
+    - docker image prune
+
+Remove all the images without exceptions
+    - docker image prune -a
+
+///////////////
+/// Volumes ///
+///////////////
+
+Run a container with named volume:
+    - docker run -d -p 8000:80 --rm --name <container_name> -v <volume_name>:<volume_path> <image_name>
+        example:
+            docker run -d -p 8000:80 --rm --name node-app -v feedback:/app/feedback feedback-app
+
+Run a bind mount container:
+    - docker run -d -p 8000:80 --rm --name <container_name> -v $(pwd):<volume_path> <image_name>
